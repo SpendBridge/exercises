@@ -16,7 +16,7 @@ Searching for "ill john" should match "Bill Johnson" and "William Johnson"
 
 The user result list should show all of the user's attributes.
 
-    {name, email, accountName, accountNumber} 
+    {fullName, email, accountName, accountNumber} 
 
 Clicking on `user.email` should show a message "You clicked email `user.email`". 
 
@@ -28,4 +28,4 @@ The design is up to you. You can use a grid to display the list of users or some
 
 ## Data
 
-The data can be found in `/data/users.json`.
+The data can be found in [/data/users.json](https://github.com/SpendBridge/exercises/blob/master/data/users.json).
