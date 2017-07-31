@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Filter Users</title>
+<style>
+table, tr, td, th {
+	border: 1px solid;
+	padding: 2px;    
+}
+table th {
+	background-color: #999999;	
+}
+table tbody { 
+	height:700px; 
+	overflow-y:scroll; 
+	display:block; 
+}
+table tr td:nth-child(2):hover,
+table tr td:nth-child(4):hover
+{    
+	cursor: pointer;    
+}
+</style>
+<script  src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="data.js"></script>
+</head>
+<body onload="javascript:showData()">
+<div>
+<label name="filter">Filter</label>
+<input type="text" id="search" placeholder="type search text"></input>
+<br />
+<br />
+<table id="userTable">
+	<tr>
+		<th>Full Name</th>
+		<th>Email</th>
+		<th>Account Name</th>
+		<th>Account Number</th>
+	</tr>
+</table>
+</div>
+</body>
+</html>
+<script>
+function showData() {         
+	//debugger;
+	for (var i=0; i< data.length; i++) {
+		var row = $('<tr><td>' + data[i].fullName + '</td><td>' + data[i].email + '</td><td>' + data[i].accountName + '</td><td>' + data[i].accountNumber + '</td></tr>');
+		$("#userTable").append(row);
+	}
+	
+	var table =  $("table");
+	
+	if (table[0] != null) {
+		var rows = table[0].rows;
+		for (var i = 0; i < rows.length; i++) {
+			for (var j = 0; j < rows[i].cells.length; j++) {        
+				rows[i].cells[j].onclick = function () {
+					var message = "You clicked ";            
+					if(this.cellIndex == 1)
+						message += "email " + this.innerHTML;
+					else if(this.cellIndex == 3)
+						message += "account " + this.previousSibling.innerHTML;
+					else 
+						return false;
+	 
+					alert(message);
+				};
+			}
+		}
+	}
+	
+	$("#search").keyup(function () {
+		var value = this.value.toLowerCase().trim();
+
+		$("table tr").each(function (index) {
+			if (!index) 
+				return;
+
+			$(this).find("td").each(function () {
+				var searchText = $(this).text().toLowerCase().trim();
+				var notfound = (searchText.indexOf(value) == -1);
+				$(this).closest('tr').toggle(!notfound);
+				return notfound;
+			});
+		});
+	});
+}
+</script>
